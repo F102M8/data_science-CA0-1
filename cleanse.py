@@ -1,11 +1,10 @@
 import pandas as pd
 
 df = pd.read_csv("data.csv", index_col=0)
-print(df.head())
 
 cleansed_df = pd.DataFrame()
 
-columns_to_be_deleted = list(filter(lambda x: x not in ['Txn Fee', 'Value'], df.columns))
+columns_to_be_deleted = list(filter(lambda x: x not in ['Txn Fee', 'Value', 'Block', 'Method'], df.columns))
 
 print(f"1. deleting these columns: {columns_to_be_deleted}")
 df.drop(columns_to_be_deleted, axis=1, inplace=True)
@@ -17,7 +16,7 @@ print(f"3. turning Txn Fee column into float")
 df['Txn Fee'] = pd.to_numeric(df['Txn Fee'], errors='coerce')
 
 print(f"4. turning Value column into float")
-df['Value'] = df['Value'].str.replace(' ETH', '').astype(float)
+df['Value'] = df['Value'].str.replace(' ETH', '').replace(',', '').astype(float)
 
 print(f"5. dropping duplicates")
 df.drop_duplicates(inplace=True)
