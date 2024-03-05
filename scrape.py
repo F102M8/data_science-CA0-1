@@ -73,4 +73,4 @@ for block_number in block_numbers:
 dr.quit()
 
 print(f"{datetime.now().strftime("%H:%M:%S")}: saving data in 'data/data.csv'")
-df.to_csv('data/data.csv')
+df.to_csv('data/data.csv', index=False)
