@@ -8,9 +8,6 @@ from bs4 import BeautifulSoup
 from time import sleep
 from datetime import datetime
 
-
-blocks_url = f'https://etherscan.io/blocks'
-
 # initializing chrome driver
 chrome_service = Service(ChromeDriverManager().install())
 chrome_options = Options()
@@ -21,7 +18,7 @@ dr = webdriver.Chrome(options=chrome_options, service=chrome_service)
 WebDriverWait(dr, 10).until(lambda dr: dr.execute_script('return document.readyState') == 'complete')
 
 # reading block numbers
-dr.get(blocks_url)
+dr.get('https://etherscan.io/blocks')
 blocks_page = dr.page_source
 
 soup = BeautifulSoup(blocks_page, 'html.parser')
@@ -75,5 +72,5 @@ for block_number in block_numbers:
         
 dr.quit()
 
-print(f"{datetime.now().strftime("%H:%M:%S")}: saving data in 'data.csv'")
-df.to_csv('data.csv')
+print(f"{datetime.now().strftime("%H:%M:%S")}: saving data in 'data/data.csv'")
+df.to_csv('data/data.csv')
